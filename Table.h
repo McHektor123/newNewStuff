@@ -10,11 +10,11 @@ class Table
 public:
 	Table(vector<Collumn*> Collumns);
 	virtual ~Table();
-	void insertValues(Table t, string title, int length, string gerne);
-	void deleteValues(Table t, int searchNumber, string searchTitle, int searchLength, string searchGerne);
-	void selectValues(Table t, string searchString, int searchInt);
-	int	 getMax(Table t);
-	void getNumber(Table t, string searchTitle, int searchLength, string searchGerne) const;
+	void insertValues(string title, int length, string gerne);
+	void deleteValues(int searchNumber, string searchTitle, int searchLength, string searchGerne);
+	void selectValues(string searchString) const;
+	void selectValues(int searchInt) const;
+	int	 getMax();
 	vector<Collumn*> getCollumns() { return m_Collumns; }
 private:
 	vector<Collumn*> m_Collumns;

@@ -24,9 +24,6 @@
     <ClInclude Include="Collumn.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="iterator.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -39,9 +36,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Collumn.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="iterator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
