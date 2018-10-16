@@ -49,7 +49,7 @@ Table::~Table()
 
 
  }
- //test
+ //test123412
  int Table::getMax(Table t) {
 	 int Maximum = 0;
 	 auto it= t.getCollumns()[0];
