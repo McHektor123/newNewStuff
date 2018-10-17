@@ -13,8 +13,6 @@ public:
 	int getLength() { return m_length; }
 	int getNumber() { return m_number; }
 	string getGerne() { return m_gerne; }
-
-	void setCurrentIndex(int index) { current_index = index; }
 private:
 	int m_number;
 	string m_title;
@@ -24,12 +22,12 @@ private:
 };
 	struct It
 		{
-		Row vec_;
+		Row* vec_;
 		int pointer_;
 
-		It(Row vec) : vec_{ vec }, pointer_{ 0 } {}
+		It(Row* vec) : vec_{ vec }, pointer_{ 0 } {}
 
-		It(Row vec, int size) : vec_{ vec }, pointer_{ size } {}
+		It(Row* vec, int size) : vec_{ vec }, pointer_{ size } {}
 
 		bool operator!=(const It other) const
 		{
@@ -60,11 +58,8 @@ private:
 			return tmp;
 		}
 
-		Row operator*() const
+		Row* operator*() 
 		{
 			return vec_;
 		}
 	};
-
-
-

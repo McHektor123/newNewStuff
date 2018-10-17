@@ -17,43 +17,96 @@ Table::~Table()
 }
 
  void Table::insertValues(string title, int length, string gerne) {
-	 Row col(currentIndex, title, length, gerne);
-	 Row *co = &col;
-	 m_Rows.push_back((co));
-	 Row* it = getRows()[0];
-	 if(currentIndex != 0)
-		  it = getRows()[currentIndex - 1];
-	 if (m_Rows.size() >= 3) {
-		 if (it->getNumber() != getMax() && it->getNumber() + 1 != (it++)->getNumber()) {
-			 currentIndex = it->getNumber() + 1;
-		 }
-		 if(it->getNumber() !=0 && it->getNumber() - 1 != (it--)->getNumber()) {
-			 currentIndex = it->getNumber() - 1;
-		 }
-		 else {
-			 currentIndex = getMax();
-		 }
+	 if (!emptyIndex.empty()) {
+		 Row *co = new  Row(emptyIndex[0], title, length, gerne);
+		 m_Rows.push_back((co));
+		 cout << "Inserted entry with title: " << title << endl;
+		 cout << "Number of entries: " << m_Rows.size() << endl;
+		 emptyIndex.erase(emptyIndex.begin());
 	 }
-	 else {
-		 currentIndex = getMax() + 1;
+	 else{
+		 Row *co = new  Row(getMax(), title, length, gerne);
+		 m_Rows.push_back((co));
+		 cout << "Inserted entry with title: " << title << endl;
+		 cout << "Number of entries: " << m_Rows.size() << endl;
 	 }
 }
 
- void Table::deleteValues(int searchNumber,  string searchTitle, int searchLength, string searchGerne) {
-	 Row* it = m_Rows[0];
-	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
-		 if (it->getGerne() == searchGerne || it->getTitle() == searchTitle || it->getLength() == searchLength || it->getNumber() == searchNumber) {
-		 m_Rows.erase(m_Rows.begin() + it->getNumber() -1);
-		 cout << "Delted entry with title: " << it->getTitle() << "." << endl;
-		}
-		 currentIndex= it->getNumber();
+ void Table::deleteWithNumber(int searchNumber, bool onlyFirst) {
+	 int index = 0;
+	 for (auto i = m_Rows.begin(); i != m_Rows.end(); ) {
+		 auto it = m_Rows.begin()[index];
+		 if (it->getNumber() == searchNumber) {
+			 emptyIndex.push_back(it->getNumber());
+			 i = m_Rows.erase(i);
+			 cout << "Deleted entry with title: " << it->getTitle() << "." << endl;
+			 cout << "Number of left entries: " << m_Rows.size() << "." << endl;
+			 if (onlyFirst) break;
+			}
+		 else {
+			++index;
+			++i;
+		 }
+	}
+ }
+
+ void Table::deleteWithLenght(int searchLength, bool onlyFirst) {
+	 int index = 0;
+	 for (auto i = m_Rows.begin(); i != m_Rows.end(); ) {
+		 auto it = m_Rows.begin()[index];
+		 if (it->getLength() == searchLength) {
+			 emptyIndex.push_back(it->getNumber());
+			 i = m_Rows.erase(i);
+			 cout << "Deleted entry with title: " << it->getTitle() << "." << endl;
+			 cout << "Number of left entries: " << m_Rows.size() << "." << endl;
+			 if (onlyFirst) break;
+		 }
+		 else {
+			 ++index;
+			 ++i;
+		 }
+	 }
+ }
+
+ void Table::deleteWitGerne(string searchGerne, bool onlyFirst) {
+	 int index = 0;
+	 for (auto i = m_Rows.begin(); i != m_Rows.end(); ) {
+		 auto it = m_Rows.begin()[index];
+		 if (it->getGerne() == searchGerne) {
+			 emptyIndex.push_back(it->getNumber());
+			 i = m_Rows.erase(i);
+			 cout << "Deleted entry with title: " << it->getTitle() << "." << endl;
+			 cout << "Number of left entries: " << m_Rows.size() << "." << endl;
+			 if (onlyFirst) break;
+		 }
+		 else {
+			 ++index;
+			 ++i;
+		 }
+	 }
+ }
+
+ void Table::deleteWitTitle(string searchTitle, bool onlyFirst) {
+	 int index = 0;
+	 for (auto i = m_Rows.begin(); i != m_Rows.end(); ) {
+		 auto it = m_Rows.begin()[index];
+		 if (it->getTitle() == searchTitle) {
+			 emptyIndex.push_back(it->getNumber());
+			 i = m_Rows.erase(i);
+			 cout << "Deleted entry with title: " << it->getTitle() << "." << endl;
+			 cout << "Number of left entries: " << m_Rows.size() << "." << endl;
+			 if (onlyFirst) break;
+		 }
+		 else {
+			 ++index;
+			 ++i;
+		 }
 	 }
  }
 
  void Table::selectValues(string searchString) const {
-	 Row* it = m_Rows[0];
-	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
-		 if (it->getGerne() == searchString || it->getTitle() == searchString) {
+	 for (auto it : m_Rows) {
+		 if (it->getTitle() == searchString || it->getGerne() == searchString || "*" == searchString) {
 			 cout << "Index: " << it->getNumber() << " , "
 				  << "Title: " << it->getTitle() << " , "
 				  << "Length: " << it->getLength() << " , "
@@ -63,10 +116,9 @@ Table::~Table()
  }
 
  void Table::selectValues(int searchInt) const {
-	 Row* it = m_Rows[0];
-	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
+	 for (auto it : m_Rows) {
 		 if (it->getNumber() == searchInt || it->getLength() == searchInt ) {
-			 cout << "Number: " << it->getNumber() << " , "
+			 cout << "Index: " << it->getNumber() << " , "
 				 << "Title: " << it->getTitle() << " , "
 				 << "Length: " << it->getLength() << " , "
 				 << "Gerne: " << it->getGerne() << ", " << endl;
@@ -76,9 +128,8 @@ Table::~Table()
 
  int Table::getMax() {
 	 int Maximum = 0;
-	 Row* it= getRows()[0];
-	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
+	 for (auto it : m_Rows) {
 		 Maximum=it->getNumber() > Maximum ? it->getNumber() : Maximum;
 	 }
-	 return Maximum;
+	 return Maximum + 1;
  }
