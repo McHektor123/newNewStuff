@@ -20,7 +20,7 @@ Table::~Table()
 	 Collumn col(currentIndex, title, length, gerne);
 	 Collumn *co = &col;
 	 m_Collumns.push_back((co));
-	 auto it = getCollumns()[0];
+	 Collumn* it = getCollumns()[0];
 	 if(currentIndex != 0)
 		  it = getCollumns()[currentIndex - 1];
 	 if (m_Collumns.size() >= 3) {
@@ -40,17 +40,18 @@ Table::~Table()
 }
 
  void Table::deleteValues(int searchNumber,  string searchTitle, int searchLength, string searchGerne) {
-	 auto it = m_Collumns[0];
+	 Collumn* it = m_Collumns[0];
 	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
 		 if (it->getGerne() == searchGerne || it->getTitle() == searchTitle || it->getLength() == searchLength || it->getNumber() == searchNumber) {
 		 m_Collumns.erase(m_Collumns.begin() + it->getNumber() -1);
+		 cout << "Delted entry with title: " << it->getTitle() << "." << endl;
 		}
 		 currentIndex= it->getNumber();
 	 }
  }
 
  void Table::selectValues(string searchString) const {
-	 auto it = m_Collumns[0];
+	 Collumn* it = m_Collumns[0];
 	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
 		 if (it->getGerne() == searchString || it->getTitle() == searchString) {
 			 cout << "Index: " << it->getNumber() << " , "
@@ -62,7 +63,7 @@ Table::~Table()
  }
 
  void Table::selectValues(int searchInt) const {
-	 auto it = m_Collumns[0];
+	 Collumn* it = m_Collumns[0];
 	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
 		 if (it->getNumber() == searchInt || it->getLength() == searchInt ) {
 			 cout << "Number: " << it->getNumber() << " , "
@@ -75,7 +76,7 @@ Table::~Table()
 
  int Table::getMax() {
 	 int Maximum = 0;
-	 auto it= getCollumns()[0];
+	 Collumn* it= getCollumns()[0];
 	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
 		 Maximum=it->getNumber() > Maximum ? it->getNumber() : Maximum;
 	 }
