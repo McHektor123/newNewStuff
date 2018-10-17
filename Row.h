@@ -24,12 +24,12 @@ private:
 };
 	struct It
 		{
-		Row vec_;
+		Row* vec_;
 		int pointer_;
 
-		It(Row vec) : vec_{ vec }, pointer_{ 0 } {}
+		It(Row* vec) : vec_{ vec }, pointer_{ 0 } {}
 
-		It(Row vec, int size) : vec_{ vec }, pointer_{ size } {}
+		It(Row* vec, int size) : vec_{ vec }, pointer_{ size } {}
 
 		bool operator!=(const It other) const
 		{
@@ -60,7 +60,7 @@ private:
 			return tmp;
 		}
 
-		Row operator*() const
+		Row* operator*() 
 		{
 			return vec_;
 		}
