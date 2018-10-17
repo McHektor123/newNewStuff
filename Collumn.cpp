@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "Collumn.h"
+#include "Row.h"
 
 using namespace std;
-Collumn::Collumn(int number,  string title, int length, string gerne) : m_number(number), m_title(title), m_length(length), m_gerne(gerne)
+Row::Row(int number,  string title, int length, string gerne) : m_number(number), m_title(title), m_length(length), m_gerne(gerne)
 {
 }
 
 
-Collumn::~Collumn()
+Row::~Row()
 {
 }

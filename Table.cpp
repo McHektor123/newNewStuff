@@ -3,12 +3,12 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Collumn.h"
+#include "Row.h"
 
 
 using namespace std;
 
-Table::Table(vector<Collumn*> Collumns) : m_Collumns(Collumns)
+Table::Table(vector<Row*> Row) : m_Rows(Row)
 {
 }
 
@@ -17,13 +17,13 @@ Table::~Table()
 }
 
  void Table::insertValues(string title, int length, string gerne) {
-	 Collumn col(currentIndex, title, length, gerne);
-	 Collumn *co = &col;
-	 m_Collumns.push_back((co));
-	 Collumn* it = getCollumns()[0];
+	 Row col(currentIndex, title, length, gerne);
+	 Row *co = &col;
+	 m_Rows.push_back((co));
+	 Row* it = getRows()[0];
 	 if(currentIndex != 0)
-		  it = getCollumns()[currentIndex - 1];
-	 if (m_Collumns.size() >= 3) {
+		  it = getRows()[currentIndex - 1];
+	 if (m_Rows.size() >= 3) {
 		 if (it->getNumber() != getMax() && it->getNumber() + 1 != (it++)->getNumber()) {
 			 currentIndex = it->getNumber() + 1;
 		 }
@@ -40,10 +40,10 @@ Table::~Table()
 }
 
  void Table::deleteValues(int searchNumber,  string searchTitle, int searchLength, string searchGerne) {
-	 Collumn* it = m_Collumns[0];
-	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
+	 Row* it = m_Rows[0];
+	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
 		 if (it->getGerne() == searchGerne || it->getTitle() == searchTitle || it->getLength() == searchLength || it->getNumber() == searchNumber) {
-		 m_Collumns.erase(m_Collumns.begin() + it->getNumber() -1);
+		 m_Rows.erase(m_Rows.begin() + it->getNumber() -1);
 		 cout << "Delted entry with title: " << it->getTitle() << "." << endl;
 		}
 		 currentIndex= it->getNumber();
@@ -51,8 +51,8 @@ Table::~Table()
  }
 
  void Table::selectValues(string searchString) const {
-	 Collumn* it = m_Collumns[0];
-	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
+	 Row* it = m_Rows[0];
+	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
 		 if (it->getGerne() == searchString || it->getTitle() == searchString) {
 			 cout << "Index: " << it->getNumber() << " , "
 				  << "Title: " << it->getTitle() << " , "
@@ -63,8 +63,8 @@ Table::~Table()
  }
 
  void Table::selectValues(int searchInt) const {
-	 Collumn* it = m_Collumns[0];
-	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
+	 Row* it = m_Rows[0];
+	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
 		 if (it->getNumber() == searchInt || it->getLength() == searchInt ) {
 			 cout << "Number: " << it->getNumber() << " , "
 				 << "Title: " << it->getTitle() << " , "
@@ -76,8 +76,8 @@ Table::~Table()
 
  int Table::getMax() {
 	 int Maximum = 0;
-	 Collumn* it= getCollumns()[0];
-	 for (size_t index = 1; index != m_Collumns.size(); index++, it++) {
+	 Row* it= getRows()[0];
+	 for (size_t index = 1; index != m_Rows.size(); index++, it++) {
 		 Maximum=it->getNumber() > Maximum ? it->getNumber() : Maximum;
 	 }
 	 return Maximum;

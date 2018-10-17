@@ -151,7 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Collumn.h" />
+    <ClInclude Include="Row.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Table.h" />
   </ItemGroup>
