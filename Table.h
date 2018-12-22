@@ -1,27 +1,26 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Row.h"
+#include "Collumn.h"
 
 using namespace std;
 
 class Table
 {
 public:
-	Table(vector<Row*> Row);
+	Table(vector<Collumn*> Collumn);
 	virtual ~Table();
-	void insertValues(string title, int length, string gerne);
+	void insertValues(string title, int length, string gerne, int rating);
 	void deleteWithNumber(int searchNumber, bool onlyFirst);
-	void deleteWithLenght(int searchNumber, bool onlyFirst);
-	void deleteWitTitle(string searchGerne, bool onlyFirst);
+	void deleteWithLength(int searchLength, bool onlyFirst);
+	void deleteWithRating(int searchrating, bool onlyFirst);
+	void deleteWitTitle(string searchTitle, bool onlyFirst);
 	void deleteWitGerne(string searchGerne, bool onlyFirst);
 	void selectValues(string searchString) const;
-	void selectValues(int searchInt) const;
 	int	 getMax();
-	vector<Row*> getRows() { return m_Rows; }
+	vector<Collumn*> getCollumns() { return m_Collumns; }
 private:
-	vector<Row*> m_Rows;
-	int currentIndex = 0;
+	vector<Collumn*> m_Collumns;
 	int *ptr; 
 	vector<int> emptyIndex;
 

@@ -3,33 +3,32 @@
 #include <iterator>
 
 using namespace std;
-class Row
+class Collumn
 {
 public:
-	Row(int number,string title, int length, string gerne);
-	~Row();
+	Collumn(int number,string title, int length, string gerne, int rating);
+	~Collumn();
 
 	string getTitle() { return m_title; }
 	int getLength() { return m_length; }
 	int getNumber() { return m_number; }
+	int getRating() { return m_rating; }
 	string getGerne() { return m_gerne; }
-
-	void setCurrentIndex(int index) { current_index = index; }
 private:
 	int m_number;
 	string m_title;
 	int m_length;
 	string m_gerne;
-	int current_index;
+	int m_rating;
 };
 	struct It
 		{
-		Row vec_;
+		Collumn* vec_;
 		int pointer_;
 
-		It(Row vec) : vec_{ vec }, pointer_{ 0 } {}
+		It(Collumn* vec) : vec_{ vec }, pointer_{ 0 } {}
 
-		It(Row vec, int size) : vec_{ vec }, pointer_{ size } {}
+		It(Collumn* vec, int size) : vec_{ vec }, pointer_{ size } {}
 
 		bool operator!=(const It other) const
 		{
@@ -60,11 +59,8 @@ private:
 			return tmp;
 		}
 
-		Row operator*() const
+		Collumn* operator*() 
 		{
 			return vec_;
 		}
 	};
-
-
-

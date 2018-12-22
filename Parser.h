@@ -8,5 +8,7 @@ public:
 	Parser();
 	~Parser();
 	static void parseString(Table &tab, string Input);
+private:
+	bool m_all = false;
 };
 

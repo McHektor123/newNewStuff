@@ -24,14 +24,14 @@
     <ClInclude Include="Table.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Row.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Parser.h">
       <Filter>Quelldateien\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Collumn.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
