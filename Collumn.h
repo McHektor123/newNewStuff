@@ -8,12 +8,12 @@ class Collumn
 public:
 	Collumn(int number,string title, int length, string gerne, int rating);
 	~Collumn();
-
 	string getTitle() { return m_title; }
 	int getLength() { return m_length; }
 	int getNumber() { return m_number; }
 	int getRating() { return m_rating; }
 	string getGerne() { return m_gerne; }
+
 private:
 	int m_number;
 	string m_title;
@@ -21,6 +21,7 @@ private:
 	string m_gerne;
 	int m_rating;
 };
+	//Iterator for the collumns
 	struct It
 		{
 		Collumn* vec_;

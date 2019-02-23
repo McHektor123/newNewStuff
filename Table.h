@@ -17,7 +17,10 @@ public:
 	void deleteWitTitle(string searchTitle, bool onlyFirst);
 	void deleteWitGerne(string searchGerne, bool onlyFirst);
 	void selectValues(string searchString) const;
-	int	 getMax();
+	vector<string> Suggestion(string Input) const;
+	int	getGreatestIndex();
+	int getMin(int a, int b) const;
+	int getMax(int a, int b) const;
 	vector<Collumn*> getCollumns() { return m_Collumns; }
 private:
 	vector<Collumn*> m_Collumns;

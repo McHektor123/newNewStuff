@@ -27,7 +27,7 @@ void Parser::parseString(Table &tab, string Input) {
 	}
 
 	if ((arguments[0] == "delete" || arguments[0] ==  "deleteAll" || arguments[0] ==  "DELETE" || arguments[0] == "DELETEALL") && arguments.size() >= 3) {
-		bool all = arguments[1] == "deleteAll" || "DELTEALL";
+		bool all = arguments[1] == "deleteAll" || arguments[1] == "DELTEALL";
 		if (arguments[1] == "gerne" || arguments[1] ==  "GERNE") {
 			tab.deleteWitGerne(arguments[2], all);
 		}
