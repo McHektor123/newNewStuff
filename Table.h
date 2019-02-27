@@ -26,5 +26,5 @@ private:
 	vector<Collumn*> m_Collumns;
 	int *ptr; 
 	vector<int> emptyIndex;
-
+	double errorChance=0.8;
 };

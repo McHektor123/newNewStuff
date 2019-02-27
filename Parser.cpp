@@ -27,12 +27,12 @@ void Parser::parseString(Table &tab, string Input) {
 	}
 
 	if ((arguments[0] == "delete" || arguments[0] ==  "deleteAll" || arguments[0] ==  "DELETE" || arguments[0] == "DELETEALL") && arguments.size() >= 3) {
-		bool all = arguments[1] == "deleteAll" || arguments[1] == "DELTEALL";
+		bool all = arguments[0] == "deleteAll" || arguments[0] == "DELTEALL";
 		if (arguments[1] == "gerne" || arguments[1] ==  "GERNE") {
 			tab.deleteWitGerne(arguments[2], all);
 		}
 		if (arguments[1] == "title" || arguments[1] ==  "TITLE") {
-			tab.deleteWitGerne(arguments[2], all);
+			tab.deleteWitTitle(arguments[2], all);
 		}
 		try {
 			if (arguments[1] == "number"|| arguments[1] ==  "NUMBER") {
@@ -57,7 +57,7 @@ void Parser::parseString(Table &tab, string Input) {
 
 	try
 	{
-		if ((arguments[0] == "insert" || arguments[0] == "INSERT" )&& arguments.size() >= 5) {
+		if ((arguments[0] == "insert" || arguments[0] == "INSERT") && arguments.size() >= 5) {
 			tab.insertValues(arguments[1], stoi(arguments[2]), arguments[3], stoi(arguments[4]));
 		}
 	}
