@@ -187,6 +187,7 @@ Table::~Table()
 
  //if no result is found by the Inputstring, this function is called is look for a suggestion
  vector<string> Table::Suggestion(string Input) const {
+	 double errorChance=1.0;
 	 set<string> duplicates; 
 	 vector<string> suggestions;
 	 int temp,res;
@@ -195,7 +196,7 @@ Table::~Table()
 	 for (auto it : m_Collumns) {
 		 gerne = it->getGerne();
 		 title = it->getTitle();
-		 vector<string> key{ gerne,title };
+		 vector<string> key{gerne, title};
 		 for (auto k : key) {
 			 temp = 0;
 			 res = 0;
@@ -219,10 +220,18 @@ Table::~Table()
 				 }
 			 }
 			 res = getMax(res, temp);
-			 //if the input is 80% correct with found word, its an suggestion
-			 if (res / Input.length() >= errorChance && ((k.length() > Input.length() && float(Input.length()) / float(k.length()) >= 0.42) || k.length() < Input.length())) {
-				 if (duplicates.insert(it->getGerne()).second) {
-					 suggestions.push_back(it->getGerne());
+			 //give the best fiting suggestion, this might produce more than one finding
+			 if ((Input.length() < k.length() && float(Input.length()) / float(k.length()) >= 0.42) || k.length() <= Input.length()) {
+				 if (res / Input.length() >= errorChance) {
+				 	 if (duplicates.insert(k).second) {
+				 	 	 if (res / Input.length() > errorChance) {
+				 	 		 suggestions.clear();
+				 	 	 }
+				 	 	 errorChance = res / Input.length();
+						 if (errorChance >= 0.8) {
+				 	 	 suggestions.push_back(k);
+						 }
+				 	 }
 				 }
 			 }
 		 }

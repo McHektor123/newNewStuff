@@ -11,11 +11,11 @@ public:
 	Table(vector<Collumn*> Collumn);
 	virtual ~Table();
 	void insertValues(string title, int length, string gerne, int rating);
-	void deleteWithNumber(int searchNumber, bool onlyFirst);
-	void deleteWithLength(int searchLength, bool onlyFirst);
-	void deleteWithRating(int searchrating, bool onlyFirst);
-	void deleteWitTitle(string searchTitle, bool onlyFirst);
-	void deleteWitGerne(string searchGerne, bool onlyFirst);
+	void deleteWithNumber(int searchNumber, bool deleteAll);
+	void deleteWithLength(int searchLength, bool deleteAll);
+	void deleteWithRating(int searchrating, bool deleteAll);
+	void deleteWitTitle(string searchTitle, bool deleteAll);
+	void deleteWitGerne(string searchGerne, bool deleteAll);
 	void selectValues(string searchString) const;
 	vector<string> Suggestion(string Input) const;
 	int	getGreatestIndex();
@@ -26,5 +26,4 @@ private:
 	vector<Collumn*> m_Collumns;
 	int *ptr; 
 	vector<int> emptyIndex;
-	double errorChance=0.8;
 };

@@ -45,7 +45,7 @@ void Parser::parseString(Table &tab, string Input) {
 				tab.deleteWithLength(stoi(arguments[2]), all);
 			}
 		}
-		catch (exception const & e)
+		catch (exception& )
 		{
 			cout << " Wrong syntax for Lenght/Number/Rating used " << endl;
 		}
