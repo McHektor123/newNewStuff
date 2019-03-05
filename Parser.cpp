@@ -10,6 +10,10 @@ Parser::Parser()
 {
 }
 
+Parser::~Parser()
+{
+}
+
 void Parser::parseString(Table &tab, string Input) {
 	string validCalls("deleteAll,delete, select, insert, DELETEALL, DELETE, SELECT, INSERT");
 	string demiliterSpace(" ");
@@ -67,6 +71,4 @@ void Parser::parseString(Table &tab, string Input) {
 	}
 }
 
-Parser::~Parser()
-{
-}
+

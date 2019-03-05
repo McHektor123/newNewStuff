@@ -18,9 +18,7 @@ public:
 	void deleteWitGerne(string searchGerne, bool deleteAll);
 	void selectValues(string searchString) const;
 	vector<string> Suggestion(string Input) const;
-	int	getGreatestIndex();
-	int getMin(int a, int b) const;
-	int getMax(int a, int b) const;
+	bool isTrueSubString(string Input) const;
 	vector<Collumn*> getCollumns() { return m_Collumns; }
 private:
 	vector<Collumn*> m_Collumns;
