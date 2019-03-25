@@ -7,6 +7,6 @@ class Writer
 public:
 	Writer();
 	~Writer();
-	static void print(vector<Collumn*> vec);
+	static void print(vector<Row*> vec);
 };
 

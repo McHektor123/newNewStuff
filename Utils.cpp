@@ -1,14 +1,13 @@
 #include <vector>
 #include <functional>
-#include "Collumn.h"
+#include <string>
+#include "Row.h"
 #include "pch.h"
 #include "Utils.h"
-
 
 Utils::Utils()
 {
 }
-
 
 Utils::~Utils()
 {
@@ -28,21 +27,31 @@ int Utils::getMax(int a, int b) {
 	return Maximum;
 }
 
-//TODO merge this functions to one
 //get the highest index
-int Utils::getGreatestIndex(vector<Collumn*> vec1) {
+int Utils::getGreatest(vector<Row*> vec1, auto x(Row*)-> int) {
 	int Maximum = 0;
 	for (auto it : vec1) {
-		Maximum = it->getNumber() > Maximum ? it->getNumber() : Maximum;
+		Maximum = x(it) > Maximum ? x(it) : Maximum;
 	}
 	return Maximum + 1;
 }
 
-//get the longest name
-int Utils::getLongestName(vector<Collumn*> vec1) {
-	unsigned int Maximum = 0;
-	for (auto it : vec1) {
-		Maximum = it->getTitle().length() > Maximum ? it->getTitle().length() : Maximum;
-	}
-	return Maximum;
+auto Utils::length(Row* it) -> int{
+	return it->getLength();
+}
+
+auto Utils::rating(Row* it) -> int{
+	return it->getRating();
+}
+
+auto Utils::number(Row* it) -> int{
+	return it->getRating();
+}
+
+auto Utils::title(Row* it) -> string {
+	return it->getTitle();
+}
+
+auto Utils::gerne(Row* it) -> string {
+	return it->getGerne();
 }

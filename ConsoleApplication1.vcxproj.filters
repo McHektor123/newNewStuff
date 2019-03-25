@@ -16,6 +16,15 @@
     <Filter Include="Quelldateien\Parser">
       <UniqueIdentifier>{74f5f73e-fba8-432b-84a5-bc6d0e1d4dd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Parser">
+      <UniqueIdentifier>{bc260b11-44f8-427f-95a0-3bb8a6c0a7e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Writer">
+      <UniqueIdentifier>{807909bc-a190-42ac-835d-32d587eb13fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Writer">
+      <UniqueIdentifier>{f1cc6c27-ebab-46c0-aa4f-b5b95e7ae5a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -28,9 +37,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Parser.h">
-      <Filter>Quelldateien\Parser</Filter>
+      <Filter>Headerdateien\Parser</Filter>
     </ClInclude>
-    <ClInclude Include="Collumn.h">
+    <ClInclude Include="Utils.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Writer.h">
+      <Filter>Headerdateien\Writer</Filter>
+    </ClInclude>
+    <ClInclude Include="Row.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,11 +59,17 @@
     <ClCompile Include="Table.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Collumn.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Parser.cpp">
       <Filter>Quelldateien\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Writer.cpp">
+      <Filter>Quelldateien\Writer</Filter>
+    </ClCompile>
+    <ClCompile Include="Row.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

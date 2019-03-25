@@ -3,16 +3,16 @@
 #include <iterator>
 
 using namespace std;
-class Collumn
+class Row
 {
 public:
-	Collumn(int number,string title, int length, string gerne, int rating);
-	~Collumn();
-	string getTitle() { return m_title; }
-	int getLength() { return m_length; }
-	int getNumber() { return m_number; }
-	int getRating() { return m_rating; }
-	string getGerne() { return m_gerne; }
+	Row(int number,string title, int length, string gerne, int rating);
+	~Row();
+	string getTitle() const { return m_title; }
+	int getLength() const { return m_length; }
+	int getNumber() const { return m_number; }
+	int getRating() const { return m_rating; }
+	string getGerne() const { return m_gerne; }
 
 private:
 	int m_number;
@@ -21,15 +21,15 @@ private:
 	string m_gerne;
 	int m_rating;
 };
-	//Iterator for the collumns
+	//Iterator for the Rows
 	struct It
 		{
-		Collumn* vec_;
+		Row* vec_;
 		int pointer_;
 
-		It(Collumn* vec) : vec_{ vec }, pointer_{ 0 } {}
+		It(Row* vec) : vec_{ vec }, pointer_{ 0 } {}
 
-		It(Collumn* vec, int size) : vec_{ vec }, pointer_{ size } {}
+		It(Row* vec, int size) : vec_{ vec }, pointer_{ size } {}
 
 		bool operator!=(const It other) const
 		{
@@ -60,7 +60,7 @@ private:
 			return tmp;
 		}
 
-		Collumn* operator*() 
+		Row* operator*() 
 		{
 			return vec_;
 		}

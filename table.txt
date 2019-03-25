@@ -1,7 +1,3 @@
-Index	Title                 	Length	Gerne	Rating
+Index	Title                                                                                                                                   	Length	Gerne	Rating
+0	Herr_der_Ringe_I        131 min	Fantasy	10/10
 1	Herr_der_Ringe_I        131 min	Fantasy	10/10
-2	Herr_der_Ringe_II       132 min	Fac	10/10
-3	Herr_der_Ringe_III      133 min	Fic	10/10
-4	Star_Wars_I              13 min	Sci-Fi	10/10
-5	Star_Wars_II             13 min	Sci-Fi	10/10
-6	Star_Wars_III            13 min	Fantasy	10/10

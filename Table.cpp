@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Table.h"
-#include "Collumn.h"
+#include "Row.h"
 #include "Utils.h"
 #include "Writer.h"
 #include <string>
@@ -11,7 +11,7 @@
 
 using namespace std;
 
-Table::Table(vector<Collumn*> Collumn) : m_Collumns(Collumn)
+Table::Table(vector<Row*> Row) : m_Rows(Row)
 {
 }
 
@@ -21,33 +21,38 @@ Table::~Table()
 
 //insert datas
  void Table::insertValues(string title, int length, string gerne, int rating) {
-	 if (!emptyIndex.empty()) {
-		 Collumn *co = new  Collumn(emptyIndex[0], title, length, gerne, rating);
-		 m_Collumns.push_back((co));
+	 if (!unusedIndex.empty()) {
+		 Row *co = new Row(unusedIndex[0], title, length, gerne, rating);
+		 Row c2 = *co;
+		 Row *c1 = &c2;
+		 m_Rows.push_back((co));
 		 cout << "Inserted entry with title: " << title << endl;
-		 cout << "Number of entries: " << m_Collumns.size() << endl;
-		 emptyIndex.erase(emptyIndex.begin());
+		 cout << "Number of entries: " << m_Rows.size() << endl;
+		 unusedIndex.erase(unusedIndex.begin());
 	 }
 	 else{
-		 Collumn *co = new  Collumn(Utils::getGreatestIndex(m_Collumns), title, length, gerne, rating);
-		 m_Collumns.push_back((co));
+		 Row *co = new  Row(index, title, length, gerne, rating);
+		 index++;
+		 Row c2 = *co;
+		 Row *c1 = &c2;
+		 m_Rows.push_back((co));
 		 cout << "Inserted entry with title: " << title << endl;
-		 cout << "Number of entries: " << m_Collumns.size() << endl;
+		 cout << "Number of entries: " << m_Rows.size() << endl;
 	 }
- 
 }
 
- //delete data with number as key
- void Table::deleteWithNumber(int searchNumber, bool deleteAll) {
+ //delete data with a int as key
+ void Table::deleteWithInt(int searchNumber, bool deleteAll,  auto x(Row*)-> int) {
 	 int index = 0;
-	 for (auto i = m_Collumns.begin(); i != m_Collumns.end(); ) {
-		 auto it = m_Collumns.begin()[index];
-		 if (it->getNumber() == searchNumber) {
-			 emptyIndex.push_back(it->getNumber());
-			 i = m_Collumns.erase(i);
-			 cout << "Deleted entry: title" << it->getTitle() << " length=" << it->getLength() 
+	 for (auto i = m_Rows.begin(); i != m_Rows.end(); ) {
+		 auto &it = m_Rows.begin()[index];
+		 if (x(it) == searchNumber) {
+			 unusedIndex.push_back(it->getNumber());
+			 delete *i;
+			 i = m_Rows.erase(i);
+			 cout << "Deleted entry: title=" << it->getTitle() << " length=" << it->getLength() 
 				  << " gerne=" << it->getGerne() << " rating=" << it->getRating() << " number=" << it->getNumber() << "." << endl;
-			 cout << "Number of left entries: " << m_Collumns.size() << "." << endl;
+			 cout << "Number of left entries: " << m_Rows.size() << "." << endl;
 			 if (!deleteAll) break;
 			}
 		 else {
@@ -55,79 +60,18 @@ Table::~Table()
 			++i;
 		 }
 	 }
- 
  }
 
- //delete data with length as key
- void Table::deleteWithLength(int searchLength, bool deleteAll) {
+ //delete data with a string as key
+ void Table::deleteWitString(string searchGerne, bool deleteAll, auto x(Row*)-> string) {
 	 int index = 0;
-	 for (auto i = m_Collumns.begin(); i != m_Collumns.end(); ) {
-		 auto it = m_Collumns.begin()[index];
-		 if (it->getLength() == searchLength) {
-			 emptyIndex.push_back(it->getNumber());
-			 i = m_Collumns.erase(i);
-			 cout << "Deleted entry: title" << it->getTitle() << " length=" << it->getLength()
-				 << " gerne=" << it->getGerne() << " rating=" << it->getRating() << " number=" << it->getNumber() << "." << endl;			 cout << "Number of left entries: " << m_Collumns.size() << "." << endl;
-			 if (!deleteAll) break;
-		 }
-		 else {
-			 ++index;
-			 ++i;
-		 }
-	 }
- 
- }
-
- //delete data with rating as key
- void Table::deleteWithRating(int searchrating, bool deleteAll) {
-	 int index = 0;
-	 for (auto i = m_Collumns.begin(); i != m_Collumns.end(); ) {
-		 auto it = m_Collumns.begin()[index];
-		 if (it->getRating() == searchrating) {
-			 emptyIndex.push_back(it->getNumber());
-			 i = m_Collumns.erase(i);
-			 cout << "Deleted entry: title" << it->getTitle() << " length=" << it->getLength()
-				 << " gerne=" << it->getGerne() << " rating=" << it->getRating() << " number=" << it->getNumber() << "." << endl;			 cout << "Number of left entries: " << m_Collumns.size() << "." << endl;
-			 if (!deleteAll) break;
-		 }
-		 else {
-			 ++index;
-			 ++i;
-		 }
-	 }
- 
- }
-
- //delete data with genre as key
- void Table::deleteWitGerne(string searchGerne, bool deleteAll) {
-	 int index = 0;
-	 for (auto i = m_Collumns.begin(); i != m_Collumns.end(); ) {
-		 auto it = m_Collumns.begin()[index];
-		 if (it->getGerne() == searchGerne) {
-			 emptyIndex.push_back(it->getNumber());
-			 i = m_Collumns.erase(i);
-			 cout << "Deleted entry: title" << it->getTitle() << " length=" << it->getLength()
-				 << " gerne=" << it->getGerne() << " rating=" << it->getRating() << " number=" << it->getNumber() << "." << endl;			 cout << "Number of left entries: " << m_Collumns.size() << "." << endl;
-			 if (!deleteAll) break;
-		 }
-		 else {
-			 ++index;
-			 ++i;
-		 }
-	 }
- 
- }
-
- //delete data with title as key
- void Table::deleteWitTitle(string searchTitle, bool deleteAll) {
-	 int index = 0;
-	 for (auto i = m_Collumns.begin(); i != m_Collumns.end(); ) {
-		 auto it = m_Collumns.begin()[index];
-		 if (it->getTitle() == searchTitle) {
-			 emptyIndex.push_back(it->getNumber());
-			 i = m_Collumns.erase(i);
-			 cout << "Deleted entry: title" << it->getTitle() << " length=" << it->getLength()
-				 << " gerne=" << it->getGerne() << " rating=" << it->getRating() << " number=" << it->getNumber() << "." << endl;			 cout << "Number of left entries: " << m_Collumns.size() << "." << endl;
+	 for (auto i = m_Rows.begin(); i != m_Rows.end(); ) {
+		 auto &it = m_Rows.begin()[index];
+		 if (x(it) == searchGerne) {
+			 unusedIndex.push_back(it->getNumber());
+			 i = m_Rows.erase(i);
+			 cout << "Deleted entry: title=" << it->getTitle() << " length=" << it->getLength()
+				 << " gerne=" << it->getGerne() << " rating=" << it->getRating() << " number=" << it->getNumber() << "." << endl;			 cout << "Number of left entries: " << m_Rows.size() << "." << endl;
 			 if (!deleteAll) break;
 		 }
 		 else {
@@ -141,11 +85,12 @@ Table::~Table()
  //select data with genre oder title as key
  void Table::selectValues(string searchString) const {
 	 bool hasOutput=false;
-	 if (m_Collumns.size() == 0)
+	 if (m_Rows.size() == 0)
 	 {
 		cout << "No entry found" << endl;
+		hasOutput = true;
 	 }
-	 for (auto it : m_Collumns) {
+	 for (auto it : m_Rows) {
 		 if (it->getTitle() == searchString || it->getGerne() == searchString || "*" == searchString ) {
 			 cout << "Index: " << it->getNumber() << " , "
 				  << "Title: " << it->getTitle() << " , "
@@ -168,6 +113,9 @@ Table::~Table()
 		 }
 		 cout << " ?" << endl;
 	 }
+	 if (!hasOutput && Suggestion(searchString).empty()) {
+		 cout << "No entry match to the given key" << endl;
+	 }
  }
 
  //if no result is found by the Inputstring, this function is called is look for a suggestion
@@ -175,26 +123,41 @@ Table::~Table()
 	 double errorChance=1.0;
 	 set<string> duplicates; 
 	 vector<string> suggestions;
-	 int temp,res;
-	 unsigned int i,j;
+	 unsigned int i,j,temp,t1,t2,subCount,res;
 	 string gerne,title;
-	 for (auto it : m_Collumns) {
+	 bool trueSubString=false;
+	 for (auto it : m_Rows) {
+		 res = 0;
 		 gerne = it->getGerne();
 		 title = it->getTitle();
 		 vector<string> key{gerne, title};
 		 for (auto k : key) {
-			 temp = 0;
-			 res = 0;
 			 i = 0;
 			 j = 0;
+			 t1 = 0;
+			 t2 = 0;
+			 temp = 0;
+			 subCount = 0;
 			 while (i <= Input.length() - 1 && j <= k.length() - 1) {
-				 if (k[j] == toupper(Input[i]) || k[j] == tolower(Input[i])) {
+				 if (toupper(k[j]) == toupper(Input[i])) {
 					 ++temp;
 					 ++j;
 					 ++i;
 				 }
-				 if (k[j] != Input[i] && k.length() > Input.length()) {
-					 ++j;
+				 if (k.length() > Input.length()) {
+					 if (k[j] != Input[i]) {
+						++j;
+					 }
+					 while (t1 <= Input.length() - 1) {
+						 if (toupper(k[t2]) == toupper(Input[t1])) {
+							 ++subCount;
+						 }
+						 ++t1;
+						 ++t2;
+					 }
+					 if (subCount >= 4) {
+						 trueSubString = true;
+					 }
 				 }
 				 if (k[j] != Input[i] && k.length() < Input.length()) {
 					 ++i;
@@ -203,16 +166,16 @@ Table::~Table()
 					 ++i;
 					 ++j;
 				 }
-			 }
 			 res = Utils::getMax(res, temp);
+			 }
 			 //give the best fiting suggestion, this might produce more than one finding
-			 if ((Input.length() < k.length() && float(Input.length()) / float(k.length()) >= 0.42) || k.length() <= Input.length() || isTrueSubString(Input)) {
+			 if ((Input.length() < k.length() && float(Input.length()) / float(k.length()) >= 0.42) || k.length() <= Input.length() || trueSubString) {
 				 if (res / Input.length() >= errorChance) {
 				 	 if (duplicates.insert(k).second) {
-				 	 	 if (res / Input.length() > errorChance) {
+				 	 	 if (float(res) / float(Input.length()) > errorChance) {
 				 	 		 suggestions.clear();
 				 	 	 }
-				 	 	 errorChance = res / Input.length();
+				 	 	 errorChance = float(res) / float(Input.length());
 						 if (errorChance >= 0.8) {
 				 	 	 suggestions.push_back(k);
 						 }
@@ -222,37 +185,4 @@ Table::~Table()
 		 }
 	 }
 	 return  suggestions;
- }
-
- //check if the string is connected substring of an entry
- bool Table::isTrueSubString(string Input) const {
-	 int res, temp;
-	 unsigned int i, j;
-	 string gerne, title;
-	 for (auto it : m_Collumns) {
-		 gerne = it->getGerne();
-		 title = it->getTitle();
-		 vector<string> key{ gerne, title };
-		 for (auto k : key) {
-			 temp = 0;
-			 res = 0;
-			 i = 0;
-			 j = 0;
-			 if (k.length() > Input.length()) {
-				 while (i <= Input.length() - 1) {
-					 if (k[j] == toupper(Input[i]) || k[j] == tolower(Input[i])) {
-						 ++temp;
-					 }
-					 ++i;
-					 ++j;
-				 }
-			 }
-			 res = Utils::getMax(res, temp);
-			 }
-		 if (res >= 4) {
-			return true;
-			break;
-		 }
-	 }
-	return false;
  }

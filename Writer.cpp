@@ -8,7 +8,7 @@ using std::endl;
 using std::ofstream;
 #include <cstdlib>
 #include <vector>
-#include "Collumn.h"
+#include "Row.h"
 #include "Writer.h"
 // This program output values from an array to a file named example2.dat
 
@@ -21,7 +21,7 @@ Writer::~Writer()
 {
 }
 
-void Writer::print(vector<Collumn*> vec)
+void Writer::print(vector<Row*> vec)
 {
 	ofstream outdata; // outdata is like cin
 	outdata.open("table.txt"); // opens the file
@@ -29,7 +29,7 @@ void Writer::print(vector<Collumn*> vec)
 		cerr << "Error: file could not be opened" << endl;
 		exit(1);
 	}
-	int longest = Utils::getLongestName(vec);
+	int longest = Utils::getGreatest(vec, Utils::length);
 	outdata <<"Index" << "\t" << "Title" << setw(longest) << "\t" << "Length" << "\t" << "Gerne" << "\t" << "Rating" << endl;
 	for (auto i : vec) {
 	outdata << i->getNumber() << "\t"
