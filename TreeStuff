@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int summarize(int i, int j, vector<TreeNode*> list){
+        int result = 0;
+        if(j > list.size()-1)
+        {
+            j = list.size();
+        }
+        for( int a = i; a <= j; a++){
+            if(list[a-1] != NULL){
+                result += list[a-1]->val;
+            }
+        }
+        return result;
+    }
+    
+    bool IsMax(int i, vector<int> sum){
+        for(int s: sum){
+            if( s > i){
+                return false;
+            }
+        }
+        return true;
+    }
+   
+    int maxLevelSum(TreeNode* root) {
+        vector<int> sums;
+        vector<TreeNode*> list;
+        list.push_back(root);
+        sums.push_back(root->val);
+        int result= 0, i = 0; 
+        while (list[i]->right != NULL) {
+                TreeNode* n = list[i];
+                list.push_back(n->left);
+                list.push_back(n->right);
+            i++;
+        }
+
+        for( int n = 1; pow(2,n+1)-1 <= list.size()+list.size()/2; n++){
+            int m = pow(2,n);
+            sums.push_back(summarize(m,pow(2,n+1)-1,list));
+        }  
+        for( int s =0; s <= sums.size()-1; s++){
+            if(IsMax(sums[s], sums )){
+                result = s+1;
+                break;
+            }
+        }
+        return result;
+    }
+};
